@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 284 52" width="284" height="52" fill="none">
+  <g transform="translate(2, 2)">
+    <circle cx="24" cy="24" r="23" fill="#14B88E"/>
+    <path d="M30.4 43.7 C22.5 37.5 10.9 31.1 10.9 23.6 C10.9 16.4 22.1 11.9 32.4 6.6 L36.1 8.0 C27.4 13.7 18.9 18.3 18.9 24.0 C18.9 29.9 29.6 35.6 38.2 40.8 Z" fill="#FFFFFF"/>
+    <path d="M34.3 42.2 C26.1 36.6 14.9 30.4 14.9 23.8 C14.9 17.3 24.8 12.8 34.3 7.3" stroke="#14B88E" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+  <text x="60" y="25" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="17" font-weight="800" letter-spacing="0.06em" fill="#FFFFFF">PACESETTERS</text>
+  <text x="61" y="40" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="10" font-weight="700" letter-spacing="0.2em" fill="#14B88E">G-TRAVELS LIMITED</text>
+</svg>
