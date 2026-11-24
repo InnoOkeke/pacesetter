@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `Target Date: ${date}\n` +
             `Notes: ${notes}\n`
         );
-        mailtoBtn.setAttribute('href', `mailto:info@pacesetterstravel.com?subject=${subject}&body=${body}`);
+        mailtoBtn.setAttribute('href', `mailto:css@pacesetterstravel.com?subject=${subject}&body=${body}`);
       }
 
       if (whatsappBtn) {
@@ -534,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dispatchTitle) dispatchTitle.textContent = 'Protocol Request Sent';
         if (dispatchLead) {
           dispatchLead.textContent =
-            'Your booking brief has been emailed to our 24/7 Operations Desk (info@pacesetterstravel.com). You can also follow up instantly via WhatsApp or phone.';
+            'Your booking brief has been emailed to our 24/7 Operations Desk (css@pacesetterstravel.com). You can also follow up instantly via WhatsApp or phone.';
         }
       } catch {
         if (dispatchTitle) dispatchTitle.textContent = 'Dispatch Brief Ready';

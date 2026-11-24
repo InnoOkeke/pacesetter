@@ -92,8 +92,8 @@ export default async (req) => {
   }
 
   const fromEmail =
-    process.env.RESEND_FROM_EMAIL || 'Pacesetters G-Travels <bookings@pacesetterstravel.com>';
-  const toEmail = process.env.RESEND_TO_EMAIL || 'info@pacesetterstravel.com';
+    process.env.RESEND_FROM_EMAIL || 'Pacesetters G-Travels <css@pacesetterstravel.com>';
+  const toEmail = process.env.RESEND_TO_EMAIL || 'css@pacesetterstravel.com';
 
   const cleanPhoneHref = phone.replace(/[^+\d]/g, '');
   const waSummary = encodeURIComponent(
