@@ -46,6 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
         closeDrawer();
       }
     });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 860 && mobileDrawer.classList.contains('open')) {
+        closeDrawer();
+      }
+    });
   }
 
   /* ========================================================================
@@ -151,6 +157,29 @@ document.addEventListener('DOMContentLoaded', () => {
   lightbox?.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
   });
+
+  // Touch swipe navigation on Fleet Lightbox for mobile & tablet
+  let touchStartX = 0;
+  lightbox?.addEventListener(
+    'touchstart',
+    (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+      }
+    },
+    { passive: true }
+  );
+  lightbox?.addEventListener(
+    'touchend',
+    (e) => {
+      if (!lightbox.classList.contains('open') || e.changedTouches.length !== 1) return;
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(deltaX) > 45) {
+        openLightboxAt(currentLightboxIndex + (deltaX < 0 ? 1 : -1));
+      }
+    },
+    { passive: true }
+  );
 
   // Request Vehicle from Card or Lightbox
   const selectVehicleInConcierge = (vehicleName) => {
