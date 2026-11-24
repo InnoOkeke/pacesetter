@@ -401,14 +401,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const bookingForm = document.getElementById('concierge-form');
+  const submitBtn = document.getElementById('concierge-submit');
   const confirmationBox = document.getElementById('dispatch-confirmation');
+  const dispatchTitle = document.getElementById('dispatch-title');
+  const dispatchLead = document.getElementById('dispatch-lead');
   const summaryEl = document.getElementById('dispatch-summary');
   const mailtoBtn = document.getElementById('dispatch-mailto');
   const whatsappBtn = document.getElementById('dispatch-whatsapp');
   const resetFormBtn = document.getElementById('dispatch-reset');
 
   if (bookingForm && confirmationBox) {
-    bookingForm.addEventListener('submit', (e) => {
+    bookingForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const fullName = document.getElementById('concierge-name')?.value.trim() || 'Client';
@@ -420,8 +423,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const vehicle = document.getElementById('concierge-vehicle')?.value || 'Operations Recommended';
       const date = document.getElementById('concierge-date')?.value || 'Flexible / Immediate';
       const notes = document.getElementById('concierge-notes')?.value.trim() || 'Standard protocol';
+      const website = document.getElementById('concierge-website')?.value.trim() || '';
 
       const refCode = `PGT-${Math.floor(100000 + Math.random() * 900000)}`;
+      const originalBtnLabel = submitBtn?.textContent || 'Send Protocol Request';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending Request...';
+      }
 
       if (summaryEl) {
         summaryEl.innerHTML = `
@@ -468,6 +478,46 @@ document.addEventListener('DOMContentLoaded', () => {
             `Notes: ${notes}`
         );
         whatsappBtn.setAttribute('href', `https://wa.me/2348063344509?text=${waText}`);
+      }
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            refCode,
+            fullName,
+            org,
+            email,
+            phone,
+            service,
+            hub,
+            vehicle,
+            date,
+            notes,
+            website
+          })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || 'Email delivery failed');
+        }
+        if (dispatchTitle) dispatchTitle.textContent = 'Protocol Request Sent';
+        if (dispatchLead) {
+          dispatchLead.textContent =
+            'Your booking brief has been emailed to our 24/7 Operations Desk (info@pacesetterstravel.com). You can also follow up instantly via WhatsApp or phone.';
+        }
+      } catch {
+        if (dispatchTitle) dispatchTitle.textContent = 'Dispatch Brief Ready';
+        if (dispatchLead) {
+          dispatchLead.textContent =
+            'Direct email delivery is currently unavailable. Send your prepared brief immediately via WhatsApp or your email app below.';
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnLabel;
+        }
       }
 
       bookingForm.style.display = 'none';
